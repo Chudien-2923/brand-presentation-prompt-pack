@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prompt Pack - Brand Presentation Workflow</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f3ed;
+      --paper: #fffdf8;
+      --ink: #161616;
+      --muted: #66615a;
+      --line: #ded7ca;
+      --accent: #2f7d58;
+      --accent-dark: #19583b;
+      --accent-soft: #e3f1e8;
+      --code: #1f2521;
+      --code-bg: #eef5ee;
+      --shadow: 0 18px 50px rgba(28, 25, 20, 0.08);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, rgba(47, 125, 88, 0.08), transparent 360px),
+        var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 48px 0 28px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      color: var(--accent-dark);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    h1 {
+      max-width: 860px;
+      margin: 0;
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: 0.96;
+      letter-spacing: 0;
+    }
+
+    .intro {
+      max-width: 760px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 44px;
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 160ms ease;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn.primary:hover {
+      background: var(--accent-dark);
+    }
+
+    main {
+      padding-bottom: 56px;
+    }
+
+    .panel {
+      margin-top: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 253, 248, 0.82);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-inner {
+      padding: 26px;
+    }
+
+    .guide {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    h2,
+    h3 {
+      margin: 0;
+      letter-spacing: 0;
+      line-height: 1.16;
+    }
+
+    h2 {
+      font-size: 25px;
+    }
+
+    h3 {
+      font-size: 21px;
+    }
+
+    .guide p,
+    .card p {
+      margin: 12px 0 0;
+      color: var(--muted);
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .steps li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--muted);
+    }
+
+    .steps span {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .variables {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      overflow: hidden;
+    }
+
+    .variables-title {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      font-weight: 800;
+    }
+
+    .var-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 14px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .var-row:last-child {
+      border-bottom: 0;
+    }
+
+    .var-row code {
+      color: var(--accent-dark);
+      font-weight: 800;
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 20px 0 4px;
+    }
+
+    .toc a {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--ink);
+      padding: 7px 12px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .toc a:hover {
+      border-color: var(--accent);
+      color: var(--accent-dark);
+    }
+
+    .cards {
+      display: grid;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 24px rgba(28, 25, 20, 0.05);
+      overflow: hidden;
+    }
+
+    .card-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+      padding: 22px 22px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .kicker {
+      margin-bottom: 8px;
+      color: var(--accent-dark);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .copy-btn {
+      min-width: 92px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--accent-dark);
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    pre {
+      margin: 0;
+      padding: 20px 22px 22px;
+      background: var(--code-bg);
+      color: var(--code);
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 15px;
+      line-height: 1.64;
+    }
+
+    .note {
+      margin-top: 18px;
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      padding: 14px 16px;
+      color: var(--accent-dark);
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 28px 0 44px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 820px) {
+      header {
+        padding-top: 34px;
+      }
+
+      .guide {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-inner {
+        padding: 20px;
+      }
+
+      .card-head {
+        grid-template-columns: 1fr;
+      }
+
+      .copy-btn {
+        width: 100%;
+      }
+
+      .var-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .actions,
+      .toc,
+      .copy-btn {
+        display: none;
+      }
+
+      .shell {
+        width: 100%;
+      }
+
+      .panel,
+      .card {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell">
+      <div class="eyebrow">Prompt Pack</div>
+      <h1>Brand Presentation Workflow</h1>
+      <p class="intro">
+        Bộ 10 prompt Việt hoá để dựng nhanh version đầu tiên của một brand presentation:
+        logo direction, brand board, mockup, social ads, brochure, billboard, website hero và emailer.
+      </p>
+      <div class="actions">
+        <button class="btn primary" type="button" data-copy-all>Copy toàn bộ prompt</button>
+        <button class="btn" type="button" onclick="window.print()">In / lưu PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="panel">
+      <div class="panel-inner guide">
+        <div>
+          <h2>Cách dùng nhanh</h2>
+          <p>
+            Chọn prompt đúng touchpoint cần test, thay các phần trong ngoặc vuông bằng thông tin brand,
+            rồi đưa vào công cụ AI tạo ảnh hoặc AI thiết kế mà bạn đang dùng.
+          </p>
+          <ol class="steps">
+            <li><span>1</span><div>Viết brief thương hiệu thật rõ: brand làm gì, bán cho ai, khác biệt ở đâu.</div></li>
+            <li><span>2</span><div>Chốt màu, phong cách, key message và 1-3 touchpoint quan trọng.</div></li>
+            <li><span>3</span><div>Chạy prompt để lấy version 0, sau đó sửa layout, typography và hierarchy thủ công.</div></li>
+          </ol>
+          <div class="note">
+            Lưu ý: Prompt giúp dựng hướng ban đầu. Logo, layout và guideline final vẫn cần designer kiểm duyệt trước khi dùng thật.
+          </div>
+        </div>
+
+        <aside class="variables" aria-label="Danh sách biến cần thay">
+          <div class="variables-title">Các biến thường gặp</div>
+          <div class="var-row"><code>[tên brand]</code><span>Tên thương hiệu hoặc tên dự án.</span></div>
+          <div class="var-row"><code>[ngành hàng]</code><span>Ví dụ: spa, nha khoa, SaaS, F&amp;B, mỹ phẩm, logistics.</span></div>
+          <div class="var-row"><code>[màu chính]</code><span>Màu chủ đạo muốn dùng trong nhận diện.</span></div>
+          <div class="var-row"><code>[màu phụ]</code><span>Màu bổ trợ hoặc màu tạo điểm nhấn.</span></div>
+          <div class="var-row"><code>[headline]</code><span>Câu chính muốn người xem nhớ ngay.</span></div>
+          <div class="var-row"><code>[CTA]</code><span>Hành động mong muốn: đặt lịch, nhận tư vấn, mua hàng, xem demo.</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <nav class="toc" aria-label="Mục lục prompt">
+      <a href="#logo-design">Logo</a>
+      <a href="#business-card">Business Card</a>
+      <a href="#brand-board">Brand Board</a>
+      <a href="#billboard">Billboard</a>
+      <a href="#kiosk">Kiosk</a>
+      <a href="#brochure">Brochure</a>
+      <a href="#instagram">Instagram</a>
+      <a href="#website-hero">Website Hero</a>
+      <a href="#emailer">Emailer</a>
+      <a href="#line-art">Line Art</a>
+    </nav>
+
+    <section class="cards" aria-label="Danh sách prompt">
+      <article class="card" id="logo-design">
+        <div class="card-head">
+          <div>
+            <div class="kicker">Prompt 01</div>
+            <h3>Logo Design</h3>
+            <p>Tạo hướng logo ban đầu để đưa vào presentation, chưa xem là logo final.</p>
+          </div>
+          <button class="copy-btn" type="button" data-copy="#prompt-01">Copy</button>
+        </div>
+        <pre id="prompt-01">Thiết kế một logo tối giản hiện đại cho [tên brand], một thương hiệu [ngành hàng / định vị].
+Tạo icon hình học kết hợp giữa [biểu tượng 1], [biểu tượng 2] và [lợi ích / cảm giác chuyển động].
+Dùng bảng màu [màu chính] và [màu phụ], cảm giác [premium / tech / friendly / sustainable / luxury].
+Thêm wordmark [tên brand] bằng font sans-serif hiện đại, kèm tagline "[tagline]".
+Phong cách flat vector, dễ scale, nền trắng, chuyên nghiệp và phù hợp để dùng trong brand presentation.</pre>
+      </article>
+
+      <article class="card" id="business-card">
+        <div class="card-head">
+          <div>
+            <div class="kicker">Prompt 02</div>
+            <h3>Business Card Mockup</h3>
+            <p>Test nhận diện trên một vật phẩm cơ bản, dễ nhìn tính premium và độ nhất quán.</p>
+          </div>
+          <button class="copy-btn" type="button" data-copy="#prompt-02">Copy</button>
+        </div>
+        <pre id="prompt-02">Tạo mockup business card cao cấp cho [tên brand].
+Dùng phong cách tối giản, chất liệu giấy thật, ánh sáng cinematic, bề mặt [đá / bê tông / gỗ / studio surface].
+Hiển thị cả mặt trước và mặt sau, có logo, tagline, tên người, chức danh, email, website và các chi tiết nhận diện.
+Bảng màu: [màu chính], [màu phụ], [màu nền].
+Tổng thể phải giống mockup branding chuyên nghiệp, sạch và có cảm giác premium.</pre>
+      </article>
+
+      <article class="card" id="brand-board">
+        <div class="card-head">
+          <div>
+            <div class="kicker">Prompt 03</div>
+            <h3>Brand Identity Presentation Board</h3>
+            <p>Dựng board tổng quan gồm logo, màu, type, mockup, icon và brand values.</p>
+          </div>
+          <button class="copy-btn" type="button" data-copy="#prompt-03">Copy</button>
+        </div>
+        <pre id="prompt-03">Tạo một brand identity presentation board cho [tên brand].
+Bao gồm logo showcase, typography system, color palette, mockup ứng dụng, iconography, brand values và layout case study.
+Dùng phong cách [phong cách brand], màu [màu chính] + [màu phụ], nền sạch và grid rõ ràng.
+Thêm visual liên quan đến [ngành hàng / sản phẩm / dịch vụ].
+Tổng thể giống một trang Behance branding case study: hiện đại, có hierarchy, dễ trình bày với client.</pre>
+      </article>
+
+      <article class="card" id="billboard">
+        <div class="card-head">
+          <div>
+            <div class="kicker">Prompt 04</div>
+            <h3>Billboard / Transit Ad</h3>
+            <p>Kiểm tra xem brand có đủ rõ trong bối cảnh ngoài trời và đọc nhanh không.</p>
+          </div>
+          <button class="copy-btn" type="button" data-copy="#prompt-04">Copy</button>
+        </div>
+        <pre id="prompt-04">Thiết kế billboard advertisement cho [tên brand].
+Hiển thị [sản phẩm / dịch vụ / phương tiện / nhân vật] trong bối cảnh [bối cảnh sử dụng].
+Dùng headline ngắn: "[headline]".
+Bảng màu thương hiệu [màu chính] + [màu phụ], typography lớn, dễ đọc từ xa, visual mạnh.
+Tạo mockup ngoài trời realistic, ánh sáng cinematic, phong cách advertising campaign hiện đại.</pre>
+      </article>
+
+      <article class="card" id="kiosk">
+        <div class="card-head">
+          <div>
+            <div class="kicker">Prompt 05</div>
+            <h3>Kiosk / POSM / Booth</h3>
+            <p>Thử nhận diện trong event, expo, cửa hàng hoặc activation thực tế.</p>
+          </div>
+          <button class="copy-btn" type="button" data-copy="#prompt-05">Copy</button>
+        </div>
+        <pre id="prompt-05">Tạo một booth / kiosk / POSM setup cho [tên brand] tại [event / expo / store / activation].
+Bao gồm signage, counter, standee, brochure, packaging, màn hình digital và các touchpoint nhận diện.
+Dùng màu thương hiệu [màu chính] + [màu phụ], ánh sáng realistic, bố cục gọn và chuyên nghiệp.
+Phong cách [premium / tech / friendly / luxury / eco], cảm giác như một setup activation có thể dùng thật.</pre>
+      </article>
+
+      <article class="card" id="brochure">
+        <div class="card-head">
+          <div>
+            <div class="kicker">Prompt 06</div>
+            <h3>Dual-sided Brochure</h3>
+            <p>Biến concept thành tài liệu bán hàng có offer, benefit, use case và CTA.</p>
+          </div>
+          <button class="copy-btn" type="button" data-copy="#prompt-06">Copy</button>
+        </div>
+        <pre id="prompt-06">Thiết kế brochure hai mặt cho [tên brand].
+Mặt trước có headline "[headline chính]", hình ảnh [sản phẩm / dịch vụ] và thông điệp thương hiệu.
+Mặt sau trình bày features, use cases, benefit icons, thông tin liên hệ và CTA.
+Dùng layout grid sạch, typography sans-serif hiện đại, nhiều khoảng trắng và màu thương hiệu [màu chính] + [màu phụ].
+Tổng thể giống corporate brochure cao cấp, phù hợp để gửi cho khách hàng / đối tác.</pre>
+      </article>
+
+      <article class="card" id="instagram">
+        <div class="card-head">
+          <div>
+            <div class="kicker">Prompt 07</div>
+            <h3>Instagram Creative Set</h3>
+            <p>Test nhanh 3 hướng social creative để xem visual có sống được trên feed không.</p>
+          </div>
+          <button class="copy-btn" type="button" data-copy="#prompt-07">Copy</button>
+        </div>
+        <pre id="prompt-07">Tạo một bộ 3 Instagram ad creative cho [tên brand].
+Mỗi creative có layout tối giản, headline ngắn, visual chính rõ và CTA gọn.
+Dùng màu [màu chính] + [màu phụ], typography sạch, ánh sáng cinematic và phong cách social ad cao cấp.
+Các thông điệp chính: "[message 1]", "[message 2]", "[message 3]".
+Tổng thể phải đồng bộ như một mini campaign trên Instagram.</pre>
+      </article>
+
+      <article class="card" id="website-hero">
+        <div class="card-head">
+          <div>
+            <div class="kicker">Prompt 08</div>
+            <h3>Website Hero Banner</h3>
+            <p>Dựng phần hero landing page để kiểm tra message, CTA và bố cục trong 3 giây đầu.</p>
+          </div>
+          <button class="copy-btn" type="button" data-copy="#prompt-08">Copy</button>
+        </div>
+        <pre id="prompt-08">Thiết kế website hero banner theo phong cách SaaS / startup cho [tên brand].
+Bao gồm navigation bar, headline mạnh, subheadline, CTA button, visual sản phẩm / dịch vụ và background liên quan đến [ngành hàng].
+Dùng màu thương hiệu [màu chính] + [màu phụ], layout UX sạch, nhiều khoảng trắng, cảm giác premium startup.
+Composition phải rõ ràng, dễ hiểu trong 3 giây và có thể dùng làm landing page hero.</pre>
+      </article>
+
+      <article class="card" id="emailer">
+        <div class="card-head">
+          <div>
+            <div class="kicker">Prompt 09</div>
+            <h3>Conversion-focused Emailer</h3>
+            <p>Test touchpoint chuyển đổi: email booking, bán hàng, demo hoặc partnership.</p>
+          </div>
+          <button class="copy-btn" type="button" data-copy="#prompt-09">Copy</button>
+        </div>
+        <pre id="prompt-09">Tạo email marketing design cho [tên brand], mục tiêu [lead conversion / booking demo / bán hàng / partnership].
+Bao gồm headline, subheadline, CTA button, hero visual, feature icons, social proof / metric và footer.
+Dùng typography sạch, màu thương hiệu [màu chính] + [màu phụ], nhiều khoảng trắng và bố cục dễ đọc trên mobile.
+Phong cách premium, corporate, hiện đại và tối ưu cho marketing campaign.</pre>
+      </article>
+
+      <article class="card" id="line-art">
+        <div class="card-head">
+          <div>
+            <div class="kicker">Prompt 10</div>
+            <h3>Line Art Logo</h3>
+            <p>Tạo phiên bản icon phụ hoặc logo phụ theo phong cách nét liền mạch.</p>
+          </div>
+          <button class="copy-btn" type="button" data-copy="#prompt-10">Copy</button>
+        </div>
+        <pre id="prompt-10">Tạo phiên bản line-art tối giản của logo [tên brand] trên nền trắng.
+Icon nên kết hợp [biểu tượng 1], [biểu tượng 2] và [ý nghĩa thương hiệu] bằng nét liền mạch, stroke weight đều.
+Dùng màu [màu chính], phong cách flat vector, clean, futuristic và dễ dùng làm icon phụ trong brand system.</pre>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      Prompt Pack Việt hoá từ tư liệu gốc EcoNode Brand Identity - AI Prompt Set.
+      Dùng để test concept nhanh trước khi designer chỉnh sửa thành bản final.
+    </div>
+  </footer>
+
+  <script>
+    const prompts = Array.from(document.querySelectorAll("pre[id^='prompt-']"));
+
+    async function copyText(text, button) {
+      try {
+        await navigator.clipboard.writeText(text.trim());
+        const original = button.textContent;
+        button.textContent = "Đã copy";
+        window.setTimeout(() => {
+          button.textContent = original;
+        }, 1400);
+      } catch (error) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text.trim();
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        button.textContent = "Đã copy";
+      }
+    }
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = document.querySelector(button.getAttribute("data-copy"));
+        copyText(target.textContent, button);
+      });
+    });
+
+    document.querySelector("[data-copy-all]").addEventListener("click", (event) => {
+      const allText = prompts
+        .map((prompt, index) => `Prompt ${String(index + 1).padStart(2, "0")}\n${prompt.textContent.trim()}`)
+        .join("\n\n---\n\n");
+      copyText(allText, event.currentTarget);
+    });
+  </script>
+</body>
+</html>
